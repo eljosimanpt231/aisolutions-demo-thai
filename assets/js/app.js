@@ -56,10 +56,16 @@ function clearPipe() {
   waBody.innerHTML = '<div class="wa-day">HOJE</div>';
 }
 
+let isPlaying = false;
 async function playDemo() {
+  if (isPlaying) return;
+  isPlaying = true;
+  played = true; // evita disparo duplo pelo observer
   clearPipe();
-  const btn = $("#btn-play");
+  const btn = $("#btn-replay");
   btn.disabled = true; btn.textContent = "▶ A reproduzir…";
+  $("#btn-result").disabled = true;
+  $("#btn-result").classList.remove("btn-result-ready");
 
   $("#wa-status").textContent = "online";
   await wait(500);
@@ -116,9 +122,49 @@ async function playDemo() {
   msgIn("Já está organizada no seu painel 📊");
 
   btn.disabled = false; btn.textContent = "↻ Repetir demonstração";
+
+  // desbloqueia o botão "ver resultado" e chama a atenção para ele
+  const res = $("#btn-result");
+  res.disabled = false;
+  res.classList.add("btn-result-ready");
+
+  // fecha o ciclo: leva ao dashboard e destaca a fatura inserida
+  await wait(1200);
+  isPlaying = false;
+  irParaResultado();
 }
 
-$("#btn-play").addEventListener("click", playDemo);
+function irParaResultado() {
+  $("#btn-result").classList.remove("btn-result-ready");
+  activateTab("faturas");
+  $("#dashboard").scrollIntoView({ behavior: "smooth" });
+  setTimeout(() => {
+    const row = $(`#ftable-body tr[data-id="${FATURA_DEMO.id}"]`);
+    if (row) {
+      row.classList.remove("row-new");
+      void row.offsetWidth; // reinicia a animação
+      row.classList.add("row-new");
+      // badge "NOVA" temporário
+      const cell = row.querySelector("td:first-child");
+      if (cell && !cell.querySelector(".badge-novo")) {
+        const b = document.createElement("span");
+        b.className = "badge-novo"; b.textContent = "NOVA";
+        cell.appendChild(b);
+        setTimeout(() => b.remove(), 5000);
+      }
+      row.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, 750);
+}
+
+// botão hero: faz scroll até ao fluxo e arranca
+$("#btn-play").addEventListener("click", () => {
+  $("#flow").scrollIntoView({ behavior: "smooth" });
+  setTimeout(playDemo, 650);
+});
+// botões dentro da secção do fluxo
+$("#btn-replay").addEventListener("click", playDemo);
+$("#btn-result").addEventListener("click", (e) => { e.preventDefault(); irParaResultado(); });
 
 // auto-play quando a secção entra em vista (uma vez)
 let played = false;
@@ -131,13 +177,13 @@ new IntersectionObserver((entries) => {
 /* ---------- 2. DASHBOARD ---------- */
 
 // Tabs
-$$(".tab").forEach((t) => t.addEventListener("click", () => {
-  $$(".tab").forEach((x) => x.classList.remove("active"));
+function activateTab(name) {
+  $$(".tab").forEach((x) => x.classList.toggle("active", x.dataset.tab === name));
   $$(".tabpane").forEach((x) => x.classList.remove("active"));
-  t.classList.add("active");
-  $("#tab-" + t.dataset.tab).classList.add("active");
-  if (t.dataset.tab === "visao") setTimeout(renderCharts, 60);
-}));
+  $("#tab-" + name).classList.add("active");
+  if (name === "visao") setTimeout(renderCharts, 60);
+}
+$$(".tab").forEach((t) => t.addEventListener("click", () => activateTab(t.dataset.tab)));
 
 // KPIs
 function renderKpis() {

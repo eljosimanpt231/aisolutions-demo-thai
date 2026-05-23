@@ -71,7 +71,7 @@ function gerarCompras() {
   let id = 1000;
   for (const cat in dist) {
     for (let i = 0; i < dist[cat]; i++) {
-      const dia = Math.max(1, Math.min(31, Math.floor(rnd() * 31) + 1));
+      const dia = Math.floor(rnd() * 22) + 1; // mês decorrido: dias 1–22
       const [min, max] = FAIXAS[cat];
       const base = between(min, max);
       const iva = Math.round(base * 0.13 * 100) / 100; // restauração ~13%/23%
@@ -133,6 +133,8 @@ function gerarVendas() {
 const COMPRAS = gerarCompras();
 const VENDAS = gerarVendas();
 
+// helper local (eur ainda não definido aqui em cima — só ordenação)
+
 // Fatura "destaque" usada na animação (a que o cliente envia na demo)
 const FATURA_DEMO = {
   id: "C1042",
@@ -155,6 +157,10 @@ const FATURA_DEMO = {
   estado: "processada",
   origem: "WhatsApp",
 };
+
+// A fatura da demo faz parte das compras do mês (dia 22) e fica no topo
+COMPRAS.unshift(FATURA_DEMO);
+COMPRAS.sort((a, b) => b.data.localeCompare(a.data));
 
 // Helpers de agregação ------------------------------------------------
 function eur(n) {
