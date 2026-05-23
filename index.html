@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a1a">
+  <title>Thai Funchal &amp; Grill — Gestão Financeira por WhatsApp | AI Solutions</title>
+  <meta name="description" content="Da fatura ao dashboard em segundos. Demonstração AI Solutions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Fundo animado -->
+  <div class="bg-gradient"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-brandbar">
+      <span class="thai-mark">🍜</span>
+      <span class="brand-name">Thai Funchal <em>&amp; Grill</em></span>
+      <span class="brand-x">×</span>
+      <span class="ais-name">AI&nbsp;Solutions</span>
+    </div>
+    <h1 class="hero-title">Da <span class="grad">fatura</span> ao <span class="grad-gold">dashboard</span><br>em segundos.</h1>
+    <p class="hero-sub">
+      Tira uma foto da fatura. Envia pelo WhatsApp. O assistente lê o fornecedor,
+      os valores, as rubricas e a data — e organiza tudo num dashboard que podes
+      consultar a qualquer momento.
+    </p>
+    <div class="hero-cta">
+      <button class="btn btn-primary" id="btn-play">▶ Ver a demonstração</button>
+      <a href="#dashboard" class="btn btn-ghost">Saltar para o dashboard</a>
+    </div>
+    <div class="hero-scroll">↓ desliza</div>
+  </section>
+
+  <!-- ============ FLUXO / MOTION ============ -->
+  <section class="flow" id="flow">
+    <div class="flow-head">
+      <span class="kicker">Como funciona</span>
+      <h2>Envia. O assistente trata do resto.</h2>
+    </div>
+
+    <div class="flow-stage">
+      <!-- Telemóvel WhatsApp -->
+      <div class="phone" id="phone">
+        <div class="phone-notch"></div>
+        <div class="wa-header">
+          <span class="wa-back">‹</span>
+          <div class="wa-avatar">🍜</div>
+          <div class="wa-contact">
+            <strong>Assistente Thai Funchal</strong>
+            <small id="wa-status">online</small>
+          </div>
+        </div>
+        <div class="wa-body" id="wa-body">
+          <div class="wa-day">HOJE</div>
+          <!-- mensagens injetadas via JS -->
+        </div>
+        <div class="wa-input">
+          <span class="wa-plus">＋</span>
+          <div class="wa-field">Mensagem</div>
+          <span class="wa-mic">🎤</span>
+        </div>
+      </div>
+
+      <!-- Pipeline de processamento -->
+      <div class="pipe" id="pipe">
+        <div class="pipe-step" data-step="1">
+          <div class="pipe-icon">📸</div>
+          <div class="pipe-txt"><strong>Foto recebida</strong><span>Fatura via WhatsApp</span></div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step" data-step="2">
+          <div class="pipe-icon">🧠</div>
+          <div class="pipe-txt"><strong>IA a ler</strong><span>Extração de dados</span></div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step" data-step="3">
+          <div class="pipe-icon">✅</div>
+          <div class="pipe-txt"><strong>Organizado</strong><span>No dashboard</span></div>
+        </div>
+      </div>
+
+      <!-- Cartão de extração -->
+      <div class="extract" id="extract">
+        <div class="extract-head">
+          <span class="dot-live"></span> Dados extraídos
+        </div>
+        <ul class="extract-list" id="extract-list"></ul>
+        <div class="extract-foot" id="extract-foot">Inserido no dashboard ✓</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DASHBOARD ============ -->
+  <section class="dash" id="dashboard">
+    <header class="dash-header">
+      <div class="dash-title">
+        <span class="thai-mark sm">🍜</span>
+        <div>
+          <h2>Painel Financeiro</h2>
+          <small>Thai Funchal &amp; Grill · <span id="dash-mes">Maio 2026</span></small>
+        </div>
+      </div>
+      <nav class="dash-tabs">
+        <button class="tab active" data-tab="visao">Visão Geral</button>
+        <button class="tab" data-tab="faturas">Faturas</button>
+        <button class="tab" data-tab="resumo">Resumo WhatsApp</button>
+      </nav>
+    </header>
+
+    <!-- TAB: Visão Geral -->
+    <div class="tabpane active" id="tab-visao">
+      <div class="kpis" id="kpis"></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-h"><h3>Despesas por rubrica</h3><span class="card-sub">Onde está o dinheiro a sair</span></div>
+          <div id="chart-donut"></div>
+          <div class="legend" id="donut-legend"></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h3>Compras vs. Vendas</h3><span class="card-sub">Evolução diária do mês</span></div>
+          <div id="chart-area"></div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-h"><h3>Top fornecedores</h3><span class="card-sub">Maior peso nas compras</span></div>
+          <div id="chart-bar"></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h3>Últimas faturas processadas</h3><span class="card-sub">Entradas mais recentes</span></div>
+          <ul class="mini-list" id="mini-recent"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Faturas -->
+    <div class="tabpane" id="tab-faturas">
+      <div class="filters">
+        <input type="text" id="search" placeholder="🔎 Procurar fornecedor…">
+        <div class="chips" id="cat-chips"></div>
+      </div>
+      <div class="table-wrap">
+        <table class="ftable">
+          <thead>
+            <tr><th>Data</th><th>Fornecedor</th><th>Rubrica</th><th class="r">Total</th><th>Origem</th><th></th></tr>
+          </thead>
+          <tbody id="ftable-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB: Resumo WhatsApp -->
+    <div class="tabpane" id="tab-resumo">
+      <div class="resumo-grid">
+        <div class="resumo-text">
+          <span class="kicker">Sem abrir o dashboard</span>
+          <h3>Um resumo no WhatsApp, todos os dias.</h3>
+          <p>À mesma hora, o cliente recebe automaticamente o resumo das últimas 24&nbsp;horas:
+             o que entrou, o que saiu e onde gastou mais. Pode ser diário ou semanal,
+             ajustado ao ritmo do negócio.</p>
+          <ul class="ticks">
+            <li>✓ Total de compras e vendas do dia</li>
+            <li>✓ Faturas processadas e por rubrica</li>
+            <li>✓ Alertas de despesas fora do normal</li>
+            <li>✓ Periodicidade à medida (diário / semanal)</li>
+          </ul>
+        </div>
+        <div class="phone phone-static">
+          <div class="phone-notch"></div>
+          <div class="wa-header">
+            <span class="wa-back">‹</span>
+            <div class="wa-avatar">🍜</div>
+            <div class="wa-contact"><strong>Assistente Thai Funchal</strong><small>online</small></div>
+          </div>
+          <div class="wa-body" id="resumo-body"></div>
+          <div class="wa-input"><span class="wa-plus">＋</span><div class="wa-field">Mensagem</div><span class="wa-mic">🎤</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal detalhe de fatura -->
+  <div class="modal" id="modal">
+    <div class="modal-card" id="modal-card"></div>
+  </div>
+
+  <footer class="footer">
+    <span>Demonstração — dados fictícios para fins de apresentação.</span>
+    <span class="pw">Powered by <strong>AI Solutions</strong></span>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.49.1/dist/apexcharts.min.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
